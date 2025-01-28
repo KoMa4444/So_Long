@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mkollar <mkollar@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/28 15:54:26 by mkollar           #+#    #+#             */
+/*   Updated: 2025/01/28 17:07:36 by mkollar          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 #define WIDTH 1920 * 8
 #define HEIGHT 1080 * 8
@@ -5,23 +17,23 @@
 
 int32_t	main(void)
 {
-    // Init mlx with a canvas size of 256x256 and the ability to resize the window.
-    mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true);
-    
-    if (!mlx) exit(EXIT_FAILURE);
+		// Init mlx with a canvas size of 256x256 and the ability to resize the window.
+		mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "josetonto", true);
 
-    // Create a fullscrean image.
-    mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
+		if (!mlx) exit(EXIT_FAILURE);
 
-    // Set the channels of each pixel in our image to the maximum byte value of 255. 
-    memset(img->pixels, 255, img->width * img->height * BPP);
+		// Create a fullscrean image.
+		mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
 
-    // Draw the image at coordinate (0, 0).
-    mlx_image_to_window(mlx, img, 0, 0);
+		// Set the channels of each pixel in our image to the maximum byte value of 255. 
+		memset(img->pixels, 255, img->width * img->height * BPP);
 
-    // Run the main loop and terminate on quit.  
-    mlx_loop(mlx);
-    mlx_terminate(mlx);
+		// Draw the image at coordinate (0, 0).
+		mlx_image_to_window(mlx, img, 0, 0);
 
-    return (EXIT_SUCCESS);
+		// Run the main loop and terminate on quit.  
+		mlx_loop(mlx);
+		mlx_terminate(mlx);
+
+		return (EXIT_SUCCESS);
 }

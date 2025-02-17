@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mkollar <mkollar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: koma <koma@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 15:54:26 by mkollar           #+#    #+#             */
-/*   Updated: 2025/01/28 17:07:36 by mkollar          ###   ########.fr       */
+/*   Updated: 2025/01/29 14:05:04 by koma             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-#define WIDTH 1920 * 8
-#define HEIGHT 1080 * 8
+#define WIDTH 1920
+#define HEIGHT 1080
 #define BPP sizeof(int32_t)
 
 int32_t	main(void)

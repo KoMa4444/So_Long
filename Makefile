@@ -43,5 +43,9 @@ fclean: clean
 
 re: fclean all
 
+display_test: libft mlx
+	$(CC) $(C_FLAGS) display_testing.c $(LIBS) -o display_testing
+
+
 test: all
 	./$(NAME) maps/base_map.ber

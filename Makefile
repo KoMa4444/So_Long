@@ -1,30 +1,47 @@
-NAME	:= Game
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./lib/MLX42
+NAME		=	so_long
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= $(shell find ./src -iname "*.c")
-OBJS	:= ${SRCS:.c=.o}
+CC			=	cc
+C_FLAGS	=	-Wall -Wextra -Werror -g
 
-all: libmlx $(NAME)
+SRC			=	src/main.c src/error_management.c src/map_parse/map_validate.c \
+					src/map_parse/matrix_management.c 
+OBJ			=	$(SRC:.c=.o)
+HEADER	=	-Iinc
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+LIBFT		=	lib/libft
+MLX42		= ./lib/MLX42
+
+LIBS		=	-L$(LIBFT) -lft -L$(MLX42) -lmlx42 -lglfw -lm
+
+all: ${NAME}
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+	$(CC) ${C_FLAGS} $(HEADER) -c $< -o $@
 
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+libft:
+	@make -C $(LIBFT)
+	@echo "\033[33mLIBLIBFT COMPILED SUCCESSFULY!! ;)"
+
+mlx:
+	@cmake -S $(MLX42) -B $(MLX42)
+	@make -C $(MLX42)
+	@echo "\033[33mMLX42 COMPILED SUCCESSFULLY!! ;)"
+
+${NAME}: libft mlx ${OBJ}
+	$(CC) ${C_FLAGS} $(OBJ) $(LIBS) -o $(NAME)
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	@rm -f $(OBJ)
+	@make clean -C $(LIBFT)
+	@make clean -C $(MLX42)
+	@echo "\033[31mObject files removed!! ;)"
 
 fclean: clean
-	@rm -rf $(NAME)
+	@rm -f $(NAME)
+	@make fclean -C $(LIBFT)
+	@echo "\033[31mExecutable removed!! ;)"
 
-re: clean all
+re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx
+test: all
+	./$(NAME) maps/base_map.ber

@@ -31,7 +31,15 @@ void	check_for_elements(char **matrix)
 
 e_bool	check_all_wall(char *row)
 {
-	while ()
+	int	i;
+
+	i = -1;
+	while (row[++i])
+	{
+		if (row[i] != '1')
+			return (False);
+	}
+	return (True);
 }
 
 void	check_walls(char **matrix)

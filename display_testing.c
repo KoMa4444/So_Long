@@ -10,7 +10,6 @@ void	bucle(void *param)
 	pantalla_t *pantalla = (pantalla_t *)param;
 	if (mlx_is_key_down(pantalla->screen, MLX_KEY_D))
 		pantalla->image->instances[0].x += 32;
-
 }
 
 int main(void)

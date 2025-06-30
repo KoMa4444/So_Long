@@ -1,32 +1,68 @@
 #include "../../inc/so_long.h"
 
-void	check_for_elements(char **matrix)
+void	add_coin(t_map *map, t_vector2 index)
 {
-	int	player;
-	int	exit;
-	int	coin;
-	int	i;
-	int	j;
+	t_coin *save_c;
 
-	i = -1;
-	player = 0;
-	exit = 0;
-	coin = 0;
-	while (matrix[++i][j])
+	save_c = map->coin_matrix;
+	if (save_c == NULL)
 	{
-		j = -1;
-		while (matrix[i][++j])
-		{
-			if (matrix[i][j] == 'P')
-				player++;
-			else if (matrix[i][j] == 'E')
-				exit++;
-			else if (matrix[i][j] == 'C')
-				coin++;
-		}
+		save_c = (t_coin *)ft_calloc(1, sizeof(t_coin));
+		save_c->pos = index;
+		save_c->next = NULL;
+		map->coin_matrix = save_c;
 	}
-	if (player == 0 || coin == 0 || exit == 0)
-		exit_and_free_matrix(&matrix);
+	else
+	{
+		while (save_c->next != NULL)
+			save_c = save_c->next;
+		save_c->next = ft_calloc(1, sizeof(t_coin));
+		save_c->next->pos = index;
+		save_c->next->next = NULL;
+	}
+	save_c->taken = False;
+}
+
+void	get_special_pos(t_map *map, char c_cell, t_element_num *chk, t_vector2 index)
+{
+
+	if (c_cell == 'P')
+	{
+		map->player = (t_player *)ft_calloc(1, sizeof(t_player));
+		map->player->pos = (t_vector2 *)ft_calloc(1, sizeof(t_vector2));
+		*map->player->pos = index;
+		chk->player++;
+	}
+	else if (c_cell == 'E')
+	{
+		map->exit_pos = index;
+		chk->exit++;
+	}
+	else if (c_cell == 'C')
+	{
+		add_coin(map, index);
+		chk->coins++;
+	}
+}
+
+void	check_for_elements(t_map *map)
+{
+	t_element_num	*chk;
+	t_vector2	index;
+
+	index.y = -1;
+	chk = (t_element_num *)ft_calloc(1, sizeof(t_element_num));
+	chk->player = 0;
+	chk->exit = 0;
+	chk->coins = 0;
+	while (map->matrix[++index.y])
+	{
+		index.x = -1;
+		while (map->matrix[index.y][++index.x])
+			get_special_pos(map, map->matrix[index.y][index.x], chk, index);
+	}
+	if (chk->player == 0 || chk->coins == 0 || chk->exit == 0)
+		exit_and_free_matrix(&map->matrix);
 }
 
 e_bool	check_all_wall(char *row)
@@ -55,7 +91,7 @@ void	check_walls(char **matrix)
 		exit_and_free_matrix(&matrix);
 	while (matrix[++i + 1])
 	{
-		if (matrix[i][0] != 1 || matrix[i][last] != 1)
+		if (matrix[i][0] != '1' || matrix[i][last] != '1')
 			exit_and_free_matrix(&matrix);
 	}
 	ok = check_all_wall(matrix[i]);
@@ -65,6 +101,10 @@ void	check_walls(char **matrix)
 
 void	map_check(char **matrix)
 {
-	check_for_elements(matrix);
+	t_map	*map;
+	
 	check_walls(matrix);
+	map = convert_to_map(matrix);
+	check_for_elements(map);
+	display_from_m(map);
 }

@@ -4,7 +4,9 @@ CC			=	cc
 C_FLAGS	=	-Wall -Wextra -Werror -g
 
 SRC			=	src/main.c src/error_management.c src/map_parse/map_validate.c \
-					src/map_parse/matrix_management.c 
+					src/map_parse/matrix_management.c src/display/display_from_matrix.c \
+					src/map_parse/map_checking.c
+
 OBJ			=	$(SRC:.c=.o)
 HEADER	=	-Iinc
 

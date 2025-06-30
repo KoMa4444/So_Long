@@ -18,7 +18,7 @@ int	check_path(char *map_path)
 	return (fd);
 }
 
-char	**read_map(char *map_path)
+void	read_map(char *map_path)
 {
 	char		**matrix;
 	char		*line;
@@ -40,5 +40,4 @@ char	**read_map(char *map_path)
 	}
 	matrix = ft_split(line, '\n');
 	map_check(matrix);
-	return (matrix);
 }

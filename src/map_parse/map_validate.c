@@ -10,6 +10,7 @@ int	check_path(char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		exit_with_error();
+	i = 0;
 	len = ft_strlen(map_path);
 	while (i < len-4)
 		i++;

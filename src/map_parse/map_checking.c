@@ -1,31 +1,7 @@
 #include "../../inc/so_long.h"
 
-void	add_coin(t_map *map, t_vector2 index)
-{
-	t_coin *save_c;
-
-	save_c = map->coin_matrix;
-	if (save_c == NULL)
-	{
-		save_c = (t_coin *)ft_calloc(1, sizeof(t_coin));
-		save_c->pos = index;
-		save_c->next = NULL;
-		map->coin_matrix = save_c;
-	}
-	else
-	{
-		while (save_c->next != NULL)
-			save_c = save_c->next;
-		save_c->next = ft_calloc(1, sizeof(t_coin));
-		save_c->next->pos = index;
-		save_c->next->next = NULL;
-	}
-	save_c->taken = False;
-}
-
 void	get_special_pos(t_map *map, char c_cell, t_element_num *chk, t_vector2 index)
 {
-
 	if (c_cell == 'P')
 	{
 		map->player = (t_player *)ft_calloc(1, sizeof(t_player));
@@ -39,10 +15,7 @@ void	get_special_pos(t_map *map, char c_cell, t_element_num *chk, t_vector2 inde
 		chk->exit++;
 	}
 	else if (c_cell == 'C')
-	{
-		add_coin(map, index);
-		chk->coins++;
-	}
+	chk->coins++;
 }
 
 void	check_for_elements(t_map *map)
@@ -63,6 +36,7 @@ void	check_for_elements(t_map *map)
 	}
 	if (chk->player == 0 || chk->coins == 0 || chk->exit == 0)
 		exit_and_free_matrix(&map->matrix);
+	map->coin_counter = chk->coins;
 }
 
 e_bool	check_all_wall(char *row)
@@ -102,7 +76,7 @@ void	check_walls(char **matrix)
 void	map_check(char **matrix)
 {
 	t_map	*map;
-	
+
 	check_walls(matrix);
 	map = convert_to_map(matrix);
 	check_for_elements(map);

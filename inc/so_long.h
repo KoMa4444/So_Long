@@ -47,8 +47,9 @@ typedef struct s_map
 	char	**matrix;
 	int		row;
 	int		col;
+	int		coin_counter;
+	mlx_image_t	*coin_image;
 	t_vector2	exit_pos;
-	t_coin		*coin_matrix;
 	t_player	*player;
 }	t_map;
 

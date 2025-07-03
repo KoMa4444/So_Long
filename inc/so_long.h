@@ -48,7 +48,10 @@ typedef struct s_map
 	int		row;
 	int		col;
 	int		coin_counter;
+	mlx_image_t	*floor_image;
 	mlx_image_t	*coin_image;
+	mlx_image_t	*player_image;
+	mlx_image_t	*wall_image;
 	t_vector2	exit_pos;
 	t_player	*player;
 }	t_map;
@@ -63,6 +66,8 @@ void	print_matrix(char **m);
 int	matrix_len(char **matrix);
 t_map	*convert_to_map(char **matrix);
 void	map_check(char **matrix);
+void	exit_and_free_map(t_map **map);
+void	check_playeable(t_map *map);
 
 // error management
 void	exit_with_error();

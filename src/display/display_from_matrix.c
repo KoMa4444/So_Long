@@ -4,22 +4,12 @@
 
 void	load_wall(t_map *map, t_vector2 pos)
 {
-	mlx_texture_t *texture;
-	mlx_image_t *image;
-
-	texture = mlx_load_png("assets/terrain/WALL.png");
-	image = mlx_texture_to_image(map->screen, texture);
-	mlx_image_to_window(map->screen, image, pos.x * 32, pos.y * 32);
+	mlx_image_to_window(map->screen, map->wall_image, pos.x * 32, pos.y * 32);
 }
 
 void	load_floor(t_map *map, t_vector2 pos)
 {
-	mlx_texture_t *texture;
-	mlx_image_t *image;
-
-	texture = mlx_load_png("assets/terrain/FLOOR.png");
-	image = mlx_texture_to_image(map->screen, texture);
-	mlx_image_to_window(map->screen, image, pos.x * 32, pos.y * 32);
+	mlx_image_to_window(map->screen, map->floor_image, pos.x * 32, pos.y * 32);
 }
 
 void	load_coin(t_map *map, t_vector2 pos)
@@ -29,14 +19,7 @@ void	load_coin(t_map *map, t_vector2 pos)
 
 void	load_player(t_map *map, t_vector2 *pos)
 {
-	mlx_texture_t *texture;
-	
-	if (map->player->image)
-		mlx_delete_image(map->screen, map->player->image);
-	texture = mlx_load_png("assets/player/FRONT.png");
-	map->player->image = mlx_texture_to_image(map->screen, texture);
-	mlx_image_to_window(map->screen, map->player->image, pos->x * 32, pos->y * 32);
-	mlx_delete_texture(texture);
+	mlx_image_to_window(map->screen, map->player_image, pos->x * 32, pos->y * 32);
 }
 
 e_bool	compare_vectors(t_vector2 *pos1, t_vector2 pos2)
@@ -84,6 +67,8 @@ void	load_exit(t_map *map)
 	mlx_image_t *image;
 	
 	texture = mlx_load_png("assets/coin/F0003.png");
+	if (!texture)
+		exit_and_free_map(&map);
 	image = mlx_texture_to_image(map->screen, texture);
 	mlx_image_to_window(map->screen, image, map->exit_pos.x * 32, map->exit_pos.y * 32);
 }
@@ -103,10 +88,10 @@ void	delete_catched(t_map *map)
 		j = -1;
 		while (map->matrix[i][++j])
 		{
-			if (map->matrix[i][j] == 'C')
+			if (map->matrix[i][j] == 'C' || map->matrix[i][j] == 'T')
 			{
 				if (c_pos->x == j && c_pos->y == i)
-					map->coin_image->instances[count].x -= 10000;
+					map->coin_image->instances[count].enabled = false;
 				count++;
 			}
 		}
@@ -119,7 +104,7 @@ void	display_switch(t_map *map)
 	{
 		delete_catched(map);
 		map->coin_counter--;
-		map->matrix[map->player->pos->y][map->player->pos->x] = '0';
+		map->matrix[map->player->pos->y][map->player->pos->x] = 'T';
 	}
 	if (map->coin_counter == 0)
 		load_exit(map);
@@ -183,9 +168,22 @@ void	display_from_m(t_map *map)
 	mlx_texture_t *texture;
 
 	map->screen = mlx_init(map->col * 32, map->row * 32, "Not_So_Long :3", False);
-	texture = mlx_load_png("assets/coin/F0000.png");
+ 	texture = mlx_load_png("assets/terrain/FLOOR.png");
+	map->floor_image = mlx_texture_to_image(map->screen, texture);
+	free(texture);
+ 	texture = mlx_load_png("assets/terrain/WALL.png");
+	map->wall_image = mlx_texture_to_image(map->screen, texture);
+	free(texture);
+ 	texture = mlx_load_png("assets/coin/F0000.png");
 	map->coin_image = mlx_texture_to_image(map->screen, texture);
+	free(texture);
+ 	texture = mlx_load_png("assets/player/FRONT.png");
+	map->player_image = mlx_texture_to_image(map->screen, texture);
+	free(texture);
 	set_map(map);
+	check_playeable(map);
+	print_matrix(map->matrix);
+	//BIEN
 	load_player(map, map->player->pos);
 	mlx_loop_hook(map->screen, main_loop, (void *)map);
 	mlx_key_hook(map->screen, move_character, (void *)map);

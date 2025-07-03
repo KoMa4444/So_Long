@@ -3,13 +3,17 @@
 
 void	free_matrix(char ***matrix)
 {
-	while (*matrix)
+	char **tmp_m;
+	int	i;
+
+	i = -1;
+	tmp_m = *matrix;
+	while (tmp_m[++i])
 	{
-		free(**matrix);
-		**matrix = NULL;
-		(*matrix)++;
+		free(tmp_m[i]);
+		tmp_m[i] = NULL;
 	}
-	free(*matrix);
+	free(tmp_m);
 }
 
 void	print_matrix(char **m)

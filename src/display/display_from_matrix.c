@@ -63,14 +63,7 @@ void	set_map(t_map *map)
 
 void	load_exit(t_map *map)
 {
-	mlx_texture_t *texture;
-	mlx_image_t *image;
-	
-	texture = mlx_load_png("assets/coin/F0003.png");
-	if (!texture)
-		exit_and_free_map(&map);
-	image = mlx_texture_to_image(map->screen, texture);
-	mlx_image_to_window(map->screen, image, map->exit_pos.x * 32, map->exit_pos.y * 32);
+	mlx_image_to_window(map->screen, map->exit_image, map->exit_pos.x * 32, map->exit_pos.y * 32);
 }
 
 void	delete_catched(t_map *map)
@@ -124,7 +117,7 @@ void	move_character(mlx_key_data_t keydata, void *map_ptr)
 		if (map->matrix[map->player->pos->y][map->player->pos->x - 1] != '1')
 		{
 			map->player->pos->x -= 1;
-			map->player->image->instances[0].x -= 32;
+			map->player_image->instances[0].x -= 32;
 		}
 	}
 	else if (keydata.key == MLX_KEY_D)
@@ -132,7 +125,7 @@ void	move_character(mlx_key_data_t keydata, void *map_ptr)
 		if (map->matrix[map->player->pos->y][map->player->pos->x + 1] != '1')
 		{
 			map->player->pos->x += 1;
-			map->player->image->instances[0].x += 32;
+			map->player_image->instances[0].x += 32;
 		}
 	}
 	else if (keydata.key == MLX_KEY_S)
@@ -140,7 +133,7 @@ void	move_character(mlx_key_data_t keydata, void *map_ptr)
 		if (map->matrix[map->player->pos->y + 1][map->player->pos->x] != '1')
 		{
 			map->player->pos->y += 1;
-			map->player->image->instances[0].y += 32;
+			map->player_image->instances[0].y += 32;
 		}
 	}
 	else if (keydata.key == MLX_KEY_W)
@@ -148,7 +141,7 @@ void	move_character(mlx_key_data_t keydata, void *map_ptr)
 		if (map->matrix[map->player->pos->y - 1][map->player->pos->x] != '1')
 		{
 			map->player->pos->y -= 1;
-			map->player->image->instances[0].y -= 32;
+			map->player_image->instances[0].y -= 32;
 		}
 	}
 	else if (keydata.key == MLX_KEY_ESCAPE)
@@ -167,7 +160,7 @@ void	display_from_m(t_map *map)
 {
 	mlx_texture_t *texture;
 
-	map->screen = mlx_init(map->col * 32, map->row * 32, "Not_So_Long :3", False);
+ 	map->screen = mlx_init(map->col * 32, map->row * 32, "Not_So_Long :3", False);
  	texture = mlx_load_png("assets/terrain/FLOOR.png");
 	map->floor_image = mlx_texture_to_image(map->screen, texture);
 	free(texture);
@@ -180,6 +173,10 @@ void	display_from_m(t_map *map)
  	texture = mlx_load_png("assets/player/FRONT.png");
 	map->player_image = mlx_texture_to_image(map->screen, texture);
 	free(texture);
+	texture = mlx_load_png("assets/coin/F0003.png");
+	map->exit_image = mlx_texture_to_image(map->screen, texture);
+	free(texture);
+
 	set_map(map);
 	check_playeable(map);
 	print_matrix(map->matrix);

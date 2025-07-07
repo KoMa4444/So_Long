@@ -30,16 +30,7 @@ typedef struct s_vector2
 typedef struct s_player
 {
 	t_vector2		*pos;
-	mlx_image_t	*image;
 }	t_player;
-
-typedef struct s_coin
-{
-	t_vector2			pos;
-	mlx_image_t		*image;
-	e_bool				taken;
-	struct s_coin	*next;
-}	t_coin;
 
 typedef struct s_map
 {
@@ -52,6 +43,7 @@ typedef struct s_map
 	mlx_image_t	*coin_image;
 	mlx_image_t	*player_image;
 	mlx_image_t	*wall_image;
+	mlx_image_t	*exit_image;
 	t_vector2	exit_pos;
 	t_player	*player;
 }	t_map;

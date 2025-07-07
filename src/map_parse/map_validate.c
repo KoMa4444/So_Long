@@ -4,16 +4,12 @@
 int	check_path(char *map_path)
 {
 	int	fd;
-	int	len;
 	int	i;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		exit_with_error();
-	i = 0;
-	len = ft_strlen(map_path);
-	while (i < len-4)
-		i++;
+	i = ft_strlen(map_path)-4;
 	if (ft_strncmp(map_path + i, ".ber", 4) != 0)
 		exit_with_error();
 	return (fd);

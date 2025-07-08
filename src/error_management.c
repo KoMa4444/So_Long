@@ -1,7 +1,6 @@
-
 #include "../inc/so_long.h"
 
-void	exit_with_error()
+void	exit_with_error(void)
 {
 	ft_putstr_fd("Error", 2);
 	exit(1);

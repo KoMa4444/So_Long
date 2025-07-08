@@ -5,7 +5,8 @@ C_FLAGS	=	-Wall -Wextra -Werror -g
 
 SRC			=	src/main.c src/error_management.c src/map_parse/map_validate.c \
 					src/map_parse/matrix_management.c src/display/display_from_matrix.c \
-					src/map_parse/map_checking.c
+					src/map_parse/map_checking.c src/display/init_images.c src/display/load.c \
+					src/display/setting_up_map.c src/controls/controls.c
 
 OBJ			=	$(SRC:.c=.o)
 HEADER	=	-Iinc

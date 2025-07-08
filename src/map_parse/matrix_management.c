@@ -1,10 +1,9 @@
-
 #include "../../inc/so_long.h"
 
 void	free_matrix(char ***matrix)
 {
-	char **tmp_m;
-	int	i;
+	char	**tmp_m;
+	int		i;
 
 	i = 0;
 	tmp_m = *matrix;
@@ -15,6 +14,26 @@ void	free_matrix(char ***matrix)
 		i++;
 	}
 	free(tmp_m);
+}
+
+char	**matrix_copy(t_map *map)
+{
+	int		i;
+	int		j;
+	char	**m;
+
+	i = -1;
+	m = (char **)ft_calloc(map->row, sizeof(char *));
+	while (map->matrix[++i])
+	{
+		j = -1;
+		m[i] = (char *)ft_calloc(map->col, sizeof(char));
+		while (map->matrix[i][++j])
+			m[i][j] = map->matrix[i][j];
+		m[i][j] = '\0';
+	}
+	m[i] = NULL;
+	return (m);
 }
 
 void	print_matrix(char **m)

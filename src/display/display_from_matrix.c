@@ -44,7 +44,7 @@ void	display_switch(t_map *map)
 	if (map->coin_counter == 0)
 		load_exit(map);
 	if (map->matrix[p_pos->y][p_pos->x] == 'E' && map->coin_counter == 0)
-		mlx_close_window(map->screen);
+		exit_the_game(map);
 }
 
 void	main_loop(void *map_ptr)

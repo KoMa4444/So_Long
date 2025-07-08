@@ -43,7 +43,7 @@ void	move_up_down(mlx_key_data_t keydata, t_map *map)
 void	exit_game(mlx_key_data_t keydata, t_map *map)
 {
 	if (keydata.key == MLX_KEY_ESCAPE)
-		mlx_close_window(map->screen);
+		exit_the_game(map);
 }
 
 void	move_character(mlx_key_data_t keydata, void *map_ptr)

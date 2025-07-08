@@ -55,6 +55,9 @@ void	move_left_right(mlx_key_data_t keydata, t_map *map);
 void	move_up_down(mlx_key_data_t keydata, t_map *map);
 void	exit_game(mlx_key_data_t keydata, t_map *map);
 
+// CLOSE
+void	exit_the_game(t_map *map);
+
 // display
 void	display_from_m(t_map *map);
 

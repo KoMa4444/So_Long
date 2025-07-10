@@ -6,7 +6,7 @@
 /*   By: mkollar <mkollar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:09:01 by mkollar           #+#    #+#             */
-/*   Updated: 2025/07/10 14:09:02 by mkollar          ###   ########.fr       */
+/*   Updated: 2025/07/10 14:13:53 by mkollar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ char	**matrix_copy(t_map *map)
 	char	**m;
 
 	i = -1;
-	m = (char **)ft_calloc(map->row, sizeof(char *));
+	m = (char **)ft_calloc(map->row + 1, sizeof(char *));
 	while (map->matrix[++i])
 	{
 		j = -1;
-		m[i] = (char *)ft_calloc(map->col, sizeof(char));
+		m[i] = (char *)ft_calloc(map->col + 1, sizeof(char));
 		while (map->matrix[i][++j])
 			m[i][j] = map->matrix[i][j];
 		m[i][j] = '\0';

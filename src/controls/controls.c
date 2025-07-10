@@ -6,7 +6,7 @@
 /*   By: mkollar <mkollar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:09:44 by mkollar           #+#    #+#             */
-/*   Updated: 2025/07/10 14:09:46 by mkollar          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:16:54 by mkollar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	move_left_right(mlx_key_data_t keydata, t_map *map)
 		{
 			map->player->pos->x -= 1;
 			map->player_image->instances[0].x -= 32;
+			ft_printf("moves: %i\n", map->player_moves++);
 		}
 	}
 	else if (keydata.key == MLX_KEY_D)
@@ -28,6 +29,7 @@ void	move_left_right(mlx_key_data_t keydata, t_map *map)
 		{
 			map->player->pos->x += 1;
 			map->player_image->instances[0].x += 32;
+			ft_printf("moves: %i\n", map->player_moves++);
 		}
 	}
 }
@@ -40,6 +42,7 @@ void	move_up_down(mlx_key_data_t keydata, t_map *map)
 		{
 			map->player->pos->y += 1;
 			map->player_image->instances[0].y += 32;
+			ft_printf("moves: %i\n", map->player_moves++);
 		}
 	}
 	else if (keydata.key == MLX_KEY_W)
@@ -48,6 +51,7 @@ void	move_up_down(mlx_key_data_t keydata, t_map *map)
 		{
 			map->player->pos->y -= 1;
 			map->player_image->instances[0].y -= 32;
+			ft_printf("moves: %i\n", map->player_moves++);
 		}
 	}
 }

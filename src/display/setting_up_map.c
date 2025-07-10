@@ -6,7 +6,7 @@
 /*   By: mkollar <mkollar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:08:38 by mkollar           #+#    #+#             */
-/*   Updated: 2025/07/10 14:08:40 by mkollar          ###   ########.fr       */
+/*   Updated: 2025/07/10 15:15:57 by mkollar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_map	*convert_to_map(char **matrix)
 	map->matrix = matrix;
 	map->col = ft_strlen(*matrix);
 	map->row = matrix_len(matrix);
+	map->player_moves = 0;
 	return (map);
 }
 

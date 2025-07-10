@@ -39,6 +39,7 @@ typedef struct s_map
 	int		row;
 	int		col;
 	int		coin_counter;
+	int		player_moves;
 	mlx_image_t	*floor_image;
 	mlx_image_t	*coin_image;
 	mlx_image_t	*player_image;

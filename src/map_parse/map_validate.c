@@ -6,7 +6,7 @@
 /*   By: mkollar <mkollar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:08:54 by mkollar           #+#    #+#             */
-/*   Updated: 2025/07/10 14:08:56 by mkollar          ###   ########.fr       */
+/*   Updated: 2025/07/10 14:15:37 by mkollar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	flood_fill(t_map *chk, char **map, t_vector2 pos)
 {
-	if (pos.y > chk->row - 1 || pos.x > chk->col - 1 || pos.y < 0 || pos.x < 0)
+	if (pos.y >= chk->row || pos.x >= chk->col || pos.y < 0 || pos.x < 0)
 		return ;
 	if (map[pos.y][pos.x] == '1' || map[pos.y][pos.x] == 'M')
 		return ;
